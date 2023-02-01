@@ -24,33 +24,28 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './index.css';
+import Header from './components/Header';
+import Body from './components/Body';
+import Footer from './components/Footer';
+//  Composing Component -> using Component inside Component like <Title/>
 
-//React.createElement => Object => HTML(DOM)
-
-const heading = React.createElement(
-  'h1',
-  {
-    id: 'title',
-    key: 'h1',
-  },
-  'Heading 1 for parcel'
-);
-
-//JSX => React.createElement(React libary) =>  Object => (RedctDom convert to ) HTML(DOM)
-
-const heading2 = (
-  <>
-    <h1 id="title" tabIndex={1}>
-      Namaste React
-    </h1>
-  </>
-);
-
-console.log(heading2);
-
+const AppLayout = () => {
+  return (
+    <>
+      <Header />
+      <Body />
+      <Footer />
+    </>
+  );
+};
+// React Component
+// Function Component - NEW
+// Class Based Component - OLD
+// Function Component -> Name of component starts with Capital letter - it's not mandatory
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 //passing a react element inside the root
 
 //async defer
-root.render(heading2);
+root.render(<AppLayout />);
