@@ -19,15 +19,20 @@
   "homepage": "https://bitbucket.org/namastedev/namaste-react-live#readme",
   "devDependencies": {
     "@babel/core": "^7.20.12",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "parcel": "^2.8.2",
-    "process": "^0.11.10"
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.4",
+    "prettier-plugin-tailwindcss": "^0.2.2",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.2.6"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-shimmer-effects-18": "^1.0.4"
+    "react-router-dom": "^6.8.0"
   },
   "browserslist": [
-    "last 2 Chrome versions"
+    "last 10 Chrome versions"
   ]
 }

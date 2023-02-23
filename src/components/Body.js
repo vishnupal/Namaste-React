@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import Restaurant from './RestaurantCard';
 import Shimmer from './Shimmer';
-import { ShimmerSimpleGallery } from 'react-shimmer-effects-18';
+import { Link } from 'react-router-dom';
+import useOnline from '../utils/useOnline';
 //https://snyk.io/advisor/npm-package/react-shimmer-effects-18
 const Body = () => {
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
@@ -24,21 +25,26 @@ const Body = () => {
     setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);
     setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
   }
+  const isOnline = useOnline();
+  if (!isOnline) {
+    return <h1>offline, please check your internet connection!</h1>;
+  }
   if (!allRestaurants) return null;
   return (
     <>
-      <div className="search-container">
+      <div className="search-container mb-4 rounded-md bg-purple-700 py-3">
         <input
           type="text"
           value={searchText}
-          className="search-input"
+          className="search-input  mx-3 rounded p-1 outline-offset-2 outline-purple-50"
           placeholder="Search"
           onChange={(e) => {
             setSearchText(e.target.value);
           }}
         />
         <button
-          className="search-btn"
+          className="search-btn rounded-sm bg-purple-100
+          px-2 py-1  font-medium tracking-wider text-gray-800 hover:bg-purple-300"
           onClick={() => {
             const data = filleterData(searchText, allRestaurants);
             setFilteredRestaurant(data);
@@ -49,20 +55,19 @@ const Body = () => {
         {}
       </div>
       {allRestaurants.length === 0 ? (
-        <ShimmerSimpleGallery card imageHeight={150} caption />
+        <Shimmer />
       ) : (
-        <div className="restaurant-list">
+        <div className="flex flex-wrap justify-center">
           {filteredRestaurant.length === 0 ? (
             <h1>No Restaurant Found</h1>
           ) : (
             filteredRestaurant.map((restaurant) => (
-              <Restaurant
-                key={restaurant.data?.id}
-                img={restaurant.data?.cloudinaryImageId}
-                name={restaurant.data?.name}
-                cuisines={restaurant.data?.cuisines}
-                rating={restaurant.data?.avgRating}
-              />
+              <Link
+                key={restaurant?.data?.id}
+                to={'/restaurant/' + restaurant?.data?.id}
+              >
+                <Restaurant {...restaurant.data} />
+              </Link>
             ))
           )}
         </div>
